@@ -1,51 +1,54 @@
--- Create database
 CREATE DATABASE CollegeDB;
-
--- Select database
 USE CollegeDB;
 
--- Create Department table
-CREATE TABLE Department (
-    dept_id INT PRIMARY KEY,
-    dept_name VARCHAR(50) NOT NULL UNIQUE
-);
-
--- Create Student table
 CREATE TABLE Student (
     id INT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) UNIQUE,
-    age INT CHECK (age >= 18),
-    dept_id INT,
-    FOREIGN KEY (dept_id) REFERENCES Department(dept_id)
+    name VARCHAR(50),
+    age INT,
+    marks INT
 );
 
--- Insert data into Department
-INSERT INTO Department VALUES (101, 'Computer');
-INSERT INTO Department VALUES (102, 'Mechanical');
+-- INSERT
+INSERT INTO Student VALUES (1, 'Gaurav', 20, 85);
+INSERT INTO Student VALUES (2, 'Rahul', 22, 90);
+INSERT INTO Student VALUES (3, 'Amit', 21, 70);
 
--- Insert data into Student
-INSERT INTO Student VALUES (1, 'Gaurav', 'gaurav@gmail.com', 20, 101);
-INSERT INTO Student VALUES (2, 'Rahul', 'rahul@gmail.com', 22, 102);
+-- UPDATE with arithmetic
+UPDATE Student SET marks = marks + 10 WHERE id = 3;
 
--- ALTER: Add column
-ALTER TABLE Student ADD phone VARCHAR(15);
+-- DELETE
+DELETE FROM Student WHERE id = 2;
 
--- ALTER: Modify column
-ALTER TABLE Student MODIFY name VARCHAR(100);
+-- Logical Operator
+SELECT * FROM Student WHERE age > 20 AND marks > 80;
 
--- ALTER: Drop column
-ALTER TABLE Student DROP COLUMN phone;
+-- Pattern Matching
+SELECT * FROM Student WHERE name LIKE 'A%';
 
--- Rename table
-RENAME TABLE Student TO Student_Details;
+-- String Function
+SELECT LOWER(name) FROM Student;
 
--- Truncate table
-TRUNCATE TABLE Student_Details;
+-- Set Operator (UNION)
+SELECT name FROM Student
+UNION
+SELECT name FROM Student;
 
--- Drop tables
-DROP TABLE Student_Details;
-DROP TABLE Department;
+-- TRANSACTION CONTROL
+START TRANSACTION;
 
--- Drop database (optional, write only if asked)
-DROP DATABASE CollegeDB;
+UPDATE Student SET marks = 95 WHERE id = 1;
+
+SAVEPOINT sp1;
+
+UPDATE Student SET marks = 60 WHERE id = 3;
+
+ROLLBACK TO sp1;
+
+COMMIT;
+
+-- DCL (Access Control)
+CREATE USER 'user1'@'localhost' IDENTIFIED BY 'pass123';
+
+GRANT SELECT, INSERT ON CollegeDB.Student TO 'user1'@'localhost';
+
+REVOKE INSERT ON CollegeDB.Student FROM 'user1'@'localhost';
