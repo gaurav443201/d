@@ -2,9 +2,9 @@
 use CollegeDB
 
 // Create (Insert using save method)
-db.student.save({id:1, name:"Gaurav", marks:85})
-db.student.save({id:2, name:"Rahul", marks:90})
-db.student.save({id:3, name:"Amit", marks:70})
+db.student.insertOne({id:1, name:"Gaurav", marks:85})
+db.student.insertOne({id:2, name:"Rahul", marks:90})
+db.student.insertOne({id:3, name:"Amit", marks:70})
 
 // Read (All)
 db.student.find()
