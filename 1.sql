@@ -1,4 +1,4 @@
--- Create Department table
+-- Create Department tabl
 CREATE TABLE Department (
     dept_id INT PRIMARY KEY,
     dept_name VARCHAR(50) NOT NULL UNIQUE
